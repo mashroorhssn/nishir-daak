@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0a0f24">
+<meta name="description" content="Nishir Daak — a multiplayer folklore card-battler set in a haunted night forest.">
+<title>Nishir Daak</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0f24'/%3E%3Ccircle cx='40' cy='24' r='14' fill='%23f4ecc2'/%3E%3Ccircle cx='46' cy='20' r='13' fill='%230a0f24'/%3E%3Ccircle cx='22' cy='44' r='5' fill='%23e9ff70'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="treeline" aria-hidden="true"></div>
+
+<!-- ───────────── Home ───────────── -->
+<section id="home" class="screen show">
+  <div class="home-inner">
+    <div class="moon" aria-hidden="true"></div>
+    <h1 class="title"><span class="t-bn">নিশির ডাক</span><span class="t-en">Nishir Daak</span></h1>
+    <p class="tagline">The night forest is calling your name.<br>Don't answer alone.</p>
+
+    <div class="panel">
+      <label class="field">
+        <span>Your name</span>
+        <input id="inName" maxlength="14" autocomplete="off" autocapitalize="words" placeholder="Traveller">
+      </label>
+      <button id="btnCreate" class="btn primary wide">Light a lantern <small>create a room</small></button>
+      <div class="or"><span>or join friends</span></div>
+      <div class="join-row">
+        <input id="inCode" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CODE">
+        <button id="btnJoin" class="btn">Join</button>
+      </div>
+      <p id="homeErr" class="err" role="alert"></p>
+    </div>
+    <button id="btnHow" class="link">How to play &amp; bestiary</button>
+  </div>
+</section>
+
+<!-- ───────────── Lobby ───────────── -->
+<section id="lobby" class="screen">
+  <header class="lob-top">
+    <button id="btnLeaveLobby" class="icon-btn" aria-label="Leave room">←</button>
+    <div class="code-box" id="codeBox" role="button" tabindex="0">
+      <small>Room code</small><b id="lobCode">····</b>
+    </div>
+    <button id="btnShare" class="btn small">Invite</button>
+  </header>
+  <div class="lob-scroll">
+    <h2 class="sec">Travellers</h2>
+    <div id="lobPlayers" class="lob-players"></div>
+    <h2 class="sec">Choose your wanderer</h2>
+    <div id="lobClasses" class="lob-classes"></div>
+    <div id="lobHost" class="lob-host"></div>
+  </div>
+  <footer class="lob-foot">
+    <button id="btnStart" class="btn primary wide">Enter the forest</button>
+    <p id="lobHint" class="hint"></p>
+  </footer>
+</section>
+
+<!-- ───────────── Game ───────────── -->
+<section id="game" class="screen">
+  <header class="g-top">
+    <button id="btnMenu" class="icon-btn" aria-label="Menu">☰</button>
+    <div class="dawn" id="dawn" title="Rounds until dawn">
+      <span class="d-moon"></span>
+      <div class="d-track"><i id="dawnFill"></i></div>
+      <span class="d-sun"></span>
+      <b id="roundTxt">1/12</b>
+    </div>
+    <div class="goal" title="Fireflies needed to win"><i class="ic-ff"></i><b id="goalTxt">10</b></div>
+    <div class="pile" title="Cards left in the forest deck"><i class="ic-card"></i><b id="deckTxt">0</b></div>
+  </header>
+  <div class="timer"><i id="timerFill"></i></div>
+
+  <main class="g-boards" id="boards"></main>
+
+  <footer class="g-bottom">
+    <div id="detail" class="detail"></div>
+    <div class="hand" id="hand"></div>
+    <div class="bar">
+      <div class="flame" id="flame"></div>
+      <button id="btnSkill" class="skill-btn"></button>
+      <button id="btnEmote" class="icon-btn emote-btn" aria-label="Emote">😶</button>
+      <button id="btnEnd" class="btn end-btn">End turn</button>
+    </div>
+  </footer>
+  <div id="emotes" class="emotes"></div>
+</section>
+
+<!-- ───────────── Overlays ───────────── -->
+<div id="fx" aria-hidden="true"></div>
+<div id="banner" class="banner" aria-live="polite"></div>
+<div id="toast" class="toast" role="status"></div>
+<div id="conn" class="conn">Reconnecting…</div>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-box">
+    <button class="modal-x" data-close aria-label="Close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="results" class="results" hidden>
+  <div class="res-box">
+    <div class="res-kicker" id="resKicker"></div>
+    <h2 id="resTitle"></h2>
+    <div id="resList" class="res-list"></div>
+    <div class="res-actions">
+      <button id="btnAgain" class="btn primary wide">Another night</button>
+      <button id="btnResLeave" class="link">Leave room</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
